@@ -1,4 +1,4 @@
-import winston from 'winston';
+import * as winston from 'winston';
 import winstonDatily from 'winston-daily-rotate-file';
 
 const logDir = 'logs';
