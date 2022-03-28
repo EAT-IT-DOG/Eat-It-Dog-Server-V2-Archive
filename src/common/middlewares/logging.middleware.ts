@@ -8,15 +8,11 @@ import { NextFunction, Request, Response } from 'express';
 import { Observable } from 'rxjs';
 import { logger } from '../lib/logger';
 
-@Injectable()
-export class LoggingMiddleware implements NestMiddleware {
-  constructor() {}
+export default async (req: Request, res: Response, next: NextFunction) => {
+  const ip: string | string[] | undefined =
+    req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-  use(req: Request, res: Response, next: NextFunction) {
-    const ip: string | string[] | undefined = req.headers['x-forwarded-for'];
+  logger.info('[' + req.method.toUpperCase() + "] '" + ip + "' " + req.url);
 
-    logger.info('[' + req.method.toUpperCase() + "] '" + ip + "' " + req.url);
-
-    next();
-  }
-}
+  next();
+};
