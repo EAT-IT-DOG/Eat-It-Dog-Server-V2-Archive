@@ -1,5 +1,12 @@
 import { Category } from 'src/apis/category/entities/category.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('food')
 export class Food {
@@ -22,4 +29,14 @@ export class Food {
 
   @ManyToOne(() => Category, (category) => category.idx)
   fk_category_idx!: number;
+
+  @CreateDateColumn({
+    name: 'created_at',
+  })
+  created_at!: Date;
+
+  @UpdateDateColumn({
+    name: 'updated_at',
+  })
+  updated_at!: Date;
 }
