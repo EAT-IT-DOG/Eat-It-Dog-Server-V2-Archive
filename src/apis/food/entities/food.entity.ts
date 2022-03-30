@@ -1,9 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from 'src/apis/category/entities/category.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('food')
 export class Food {
-  @PrimaryGeneratedColumn()
-  idx: number;
+  @PrimaryGeneratedColumn('uuid', {
+    name: 'idx',
+  })
+  idx!: number;
 
   @Column({
     name: 'food_number',
@@ -16,4 +19,7 @@ export class Food {
     name: 'risky_rate',
   })
   risky_rate!: number;
+
+  @ManyToOne(() => Category, (category) => category.idx)
+  fk_category_idx!: number;
 }
